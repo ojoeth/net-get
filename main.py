@@ -6,12 +6,13 @@ app = Flask(__name__)
 
 def grab_video(url, videoformat):
     # Set file name as a sha256 has of the URL
-    filename = sha256(url.encode()).hexdigest()
-    ydl_opts = {'verbose':True, 'outtmpl': ('content/'+filename)} # Set output template for Youtube-DL
+    filename = (sha256(url.encode()).hexdigest() + "." + videoformat)
+
+    ydl_opts = {'verbose':True, 'outtmpl': ('content/'+filename), 'prefer_ffmpeg': True, } # Set output template for Youtube-DL
     
     ## Check requested video format and appropriate options
     if videoformat == "mp3":
-        ydl_opts.update({'postprocessors': [{'key': 'FFmpegExtractAudio'}], 'format': 'mp3'})
+        ydl_opts.update({'format': 'mp3'})
     elif videoformat == "mp4":
         ydl_opts.update({'format':'mp4'})
     else:
@@ -21,7 +22,6 @@ def grab_video(url, videoformat):
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
     
-    filename = (filename + "." + videoformat)
     return filename
 
 @app.route('/')
