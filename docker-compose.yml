@@ -1,0 +1,17 @@
+version: "3"
+services:
+  net_get:
+    container_name: net_get
+    build: .
+    image: net_get:latest
+    ports:
+      - 80:80
+
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
