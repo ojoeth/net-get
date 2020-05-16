@@ -12,9 +12,9 @@ def grab_video(url, videoformat):
     
     ## Check requested video format and appropriate options
     if videoformat == "mp3":
-        ydl_opts.update({'format': 'mp3'})
+        ydl_opts.update({'format': 'bestaudio', "postprocessors": [{"key": "FFmpegExtractAudio", "preferredcodec": "mp3"}]})
     elif videoformat == "mp4":
-        ydl_opts.update({'format':'mp4'})
+        ydl_opts.update({'format':'mp4', 'merge_output_format':'mp4'})
     else:
         return 400, "invalid format!"
     
