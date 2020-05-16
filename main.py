@@ -1,4 +1,4 @@
-from flask import Flask, escape, request, render_template, send_from_directory
+from flask import Flask, escape, request, render_template, send_from_directory, Response
 from hashlib import sha256
 import youtube_dl
 
@@ -20,15 +20,24 @@ def grab_video(url, videoformat):
     ## Download URL
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
+    
+    filename = (filename + "." + videoformat)
     return filename
 
 @app.route('/')
 def main_page():
     return render_template('index.html')
 
+@app.route('/styles.css')
+def serve_styles():
+    styles = render_template('styles.css')
+    return Response(styles, mimetype='text/css')
+
 @app.route('/download', methods=['GET', 'POST'])
 def download_video():
-    return grab_video(request.form.get('url'), request.form.get('videoformat'))
+    origin = request.headers.get('Origin')
+    path = grab_video(request.form.get('url'), request.form.get('videoformat'))
+    return render_template('content.html', path=path, origin=origin)
 
 @app.route('/content/<path:path>')
 def serve_content(path):

@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
+    <head>
+      <title>
+        net-get, a minimal media downloader
+      </title>
+      <link rel="stylesheet" type="text/css" href="{{ origin }}/styles.css">
+    </head>
     <body>
+      <h1>Net-Get</h1>
+      <h2>A minimal media downloader</h2>
       <form action="/download" method="post">
           <input type="text" id="url" name="url" placeholder="Input URL of video">
           <select name="videoformat" id="videoformat">
             <option value="mp3">MP3</option>
-            <option value="mp4">MP4</option>
+            <option value="mp4" selected>MP4</option>
           </select>
           <input type="submit" value="Download!">
       </form>  

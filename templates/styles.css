@@ -1,0 +1,14 @@
+body{
+    background-color: #fee;
+    text-align: center;
+}
+h1{
+    padding-top: 10%;;
+}
+h2{
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+form {
+    display: inline-block;
+}
