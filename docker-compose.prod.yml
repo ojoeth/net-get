@@ -1,0 +1,16 @@
+version: "3"
+services:
+  net_get:
+    container_name: net_get
+    image: ojoeth/net_get:latest
+    ports:
+      - 80:80
+
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 100M
+        reservations:
+          cpus: '0.25'
+          memory: 20M

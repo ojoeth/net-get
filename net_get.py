@@ -1,4 +1,4 @@
-from flask import Flask, escape, request, render_template, send_from_directory, Response
+from flask import Flask, escape, request, render_template, send_from_directory, Response, redirect
 from hashlib import sha256
 from celery import Celery
 import youtube_dl
@@ -38,8 +38,12 @@ def serve_styles():
 @webapp.route('/download', methods=['GET', 'POST'])
 def download_video():
     origin = request.headers.get('Origin')
-    path = make_filename(request.form.get('url'), request.form.get('videoformat'))
-    return render_template('content.html', path=path, origin=origin)
+
+    if request.method == 'POST':
+        path = make_filename(request.form.get('url'), request.form.get('videoformat'))
+        return render_template('content.html', path=path, origin=origin)
+    else:
+        return redirect("..", code=302)
 
 @webapp.route('/content/<path:path>')
 def serve_content(path):
