@@ -1,6 +1,7 @@
 from flask import Flask, escape, request, render_template, send_from_directory, Response, redirect
 from hashlib import sha256
 from celery import Celery
+from os import path as ospath
 import youtube_dl
 
 celery = Celery('net_get', broker='redis://redis:6379/0')
@@ -47,4 +48,9 @@ def download_video():
 
 @webapp.route('/content/<path:path>')
 def serve_content(path):
-    return send_from_directory('content', path)
+    if ospath.exists(("content/"+path)):
+        return send_from_directory('content', path)
+    elif ospath.exists(("content/"+path+".part")):
+        return render_template('not_ready.html')
+    else:
+        return render_template("404.html"), 404
