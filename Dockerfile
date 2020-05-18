@@ -4,4 +4,4 @@ RUN apk update && apk add ffmpeg
 ADD . /srv/net-get
 WORKDIR /srv/net-get
 RUN pip install -r requirements.txt
-CMD gunicorn -b :80 wsgi:app
+CMD gunicorn -b :80 wsgi:webapp
