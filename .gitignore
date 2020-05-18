@@ -1,4 +1,7 @@
 content/*
 __pycache__/
 venv/
-
+docker-compose.yml
+celeryd.pid
+celerybeat-schedule
+public/

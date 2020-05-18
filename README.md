@@ -16,7 +16,16 @@ python3 -m pip install -r requirements.txt
 ```
 
 ## Running the server
+
 ### With Docker (recommended)
+
+#### From Docker Hub
+
+```
+docker run -d --name net_get -p 80:80 ojoeth/net_get:latest
+```
+#### Building yourself
+
 * Git clone this repository
 * cd into this repository
 * Make sure Docker is installed, and run:
@@ -30,4 +39,6 @@ docker run -d --name net_get -p 80:80 net_get:latest
 * git clone this repository
 * cd into this repository
 * install dependencies listed above
+* start redis server
+* start celery worker for net_get
 * run `gunicorn -b :80 wsgi:app`

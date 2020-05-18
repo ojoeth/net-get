@@ -1,3 +1,3 @@
-from net_get import app
+from net_get import webapp
 if __name__ == "__main__":
-    app.run()
+    webapp.run()
